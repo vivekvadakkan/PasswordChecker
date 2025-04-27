@@ -24,7 +24,7 @@ A secure password is your first line of defense against cyber attacks. This tool
 ## How to Run the Project 🚀
 1. Clone this repository:
    bash
-   git clone https://github.com/vivekvdakkan/PasswordCheckerProject.git
+   git clone https://github.com/vivekvdakkan/PasswordChecker.git
    
 2. Navigate to the project directory:
    bash
