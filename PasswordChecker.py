@@ -14,40 +14,39 @@ def show_password_tips():
 
 # Password strength checker
 def check_password_strength(password):
-    suggestions = []  # List to hold suggestions for improvement
+    required_suggestions = []  # Failures that make a password weak
+    optional_tips = []         # Extra suggestions to improve already strong passwords
 
-    # Check length
-    if len(password) < 16:
-        suggestions.append("The longer your password, the harder it is to break—aim for 16 characters or more.")
-
-    # Check for uppercase letter
+    # Required checks
+    if len(password) < 8:
+        required_suggestions.append("Your password should be at least 8 characters long.")
     if not re.search("[A-Z]", password):
-        suggestions.append("Mix uppercase letters with lowercase letters to make your password tougher to crack.")
-
-    # Check for lowercase letter
+        required_suggestions.append("Mix uppercase letters with lowercase letters to make your password tougher to crack.")
     if not re.search("[a-z]", password):
-        suggestions.append("Include lowercase letters for added complexity.")
-
-    # Check for numbers
+        required_suggestions.append("Include lowercase letters for added complexity.")
     if not re.search("[0-9]", password):
-        suggestions.append("Adding numbers makes your password more unpredictable.")
-
-    # Check for special characters
+        required_suggestions.append("Adding numbers makes your password more unpredictable.")
     if not re.search("[@#$%^&*!]", password):
-        suggestions.append("Symbols like '@', '#', and '!' make your password more secure.")
-
-    # Check for personal details and patterns
+        required_suggestions.append("Symbols like '@', '#', and '!' make your password more secure.")
     if re.search(r"(\d{4}|\bpassword\b|\b1234\b)", password, re.IGNORECASE):
-        suggestions.append("Avoid personal details (e.g., your birth year) and predictable patterns.")
+        required_suggestions.append("Avoid personal details (e.g., your birth year) and predictable patterns.")
 
-    # Response based on suggestions
-    if suggestions:
+    # Optional tip
+    if len(password) >= 8 and len(password) < 16:
+        optional_tips.append("Consider using 16 or more characters or use more special characters for even stronger protection.")
+
+    # Output
+    if required_suggestions:
         print("\nWeak Password! Here are some suggestions to make it stronger:")
-        for suggestion in suggestions:
+        for suggestion in required_suggestions:
             print(f"- {suggestion}")
         return "Try again with a stronger password."
     else:
         print("\nStrong Password!")
+        if optional_tips:
+            print("Optional tips to make it even stronger:")
+            for tip in optional_tips:
+                print(f"- {tip}")
         return "Your password is highly secure. Well done!"
 
 # Main function
